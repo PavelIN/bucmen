@@ -1,18 +1,14 @@
-import {useState} from "react";
+import { useState } from "react";
 import logo from './logo.svg';
 import './App.css';
 
-const reqUrl = "http://localhost:8080"
-
-
-
-
+const reqUrl = "http://localhost/test"
 
 const App =()=> {
 
 const[data,setData]=useState("ddd");
 
- const getData  = async(data) => {
+ const getData  = async() => {
     const fetchParms = {
       metod:"GET",
       headers:{
@@ -20,13 +16,14 @@ const[data,setData]=useState("ddd");
       },
     }
    const res = await fetch(reqUrl,fetchParms)
-   setData(res)
+   const parsedRes = await res.text()
+   setData(parsedRes)
   }
 
   return (
     <div className="App">
-      <button className ="bucButton" onClick={getData}>PressMeBuc</button>
-      <textarea className ="bucText">{data}</textarea>
+      <button onClick={getData}>PressMeBuc</button>
+      <textarea value={data}/>
     </div>
   );
 }
